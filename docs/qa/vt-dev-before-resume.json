@@ -1,0 +1,658 @@
+{
+  "scope": "VT-dev real remote, authenticated public-client and application API",
+  "startedAt": "2026-09-18T09:44:17.984Z",
+  "pass": [
+    {
+      "name": "A: Email + Password sign-in"
+    },
+    {
+      "name": "B: Email + Password sign-in"
+    },
+    {
+      "name": "A/B authenticated identities are distinct"
+    },
+    {
+      "name": "A: training_plans seed count",
+      "details": {
+        "rows": 3
+      }
+    },
+    {
+      "name": "A: training_tasks seed count",
+      "details": {
+        "rows": 10
+      }
+    },
+    {
+      "name": "A: profiles unfiltered SELECT returns only own records",
+      "details": {
+        "rows": 1
+      }
+    },
+    {
+      "name": "A: daily_progress unfiltered SELECT returns only own records",
+      "details": {
+        "rows": 8
+      }
+    },
+    {
+      "name": "A: checkins unfiltered SELECT returns only own records",
+      "details": {
+        "rows": 2
+      }
+    },
+    {
+      "name": "B: training_plans seed count",
+      "details": {
+        "rows": 3
+      }
+    },
+    {
+      "name": "B: training_tasks seed count",
+      "details": {
+        "rows": 10
+      }
+    },
+    {
+      "name": "B: profiles unfiltered SELECT returns only own records",
+      "details": {
+        "rows": 1
+      }
+    },
+    {
+      "name": "B: daily_progress unfiltered SELECT returns only own records",
+      "details": {
+        "rows": 7
+      }
+    },
+    {
+      "name": "B: checkins unfiltered SELECT returns only own records",
+      "details": {
+        "rows": 2
+      }
+    },
+    {
+      "name": "Both authenticated fixtures have readable profiles and business tables"
+    },
+    {
+      "name": "A: cannot read B's existing profiles",
+      "details": {
+        "returned": 0
+      }
+    },
+    {
+      "name": "A: cannot read B's existing daily_progress",
+      "details": {
+        "returned": 0
+      }
+    },
+    {
+      "name": "A: cannot read B's existing checkins",
+      "details": {
+        "returned": 0
+      }
+    },
+    {
+      "name": "B: cannot read A's existing profiles",
+      "details": {
+        "returned": 0
+      }
+    },
+    {
+      "name": "B: cannot read A's existing daily_progress",
+      "details": {
+        "returned": 0
+      }
+    },
+    {
+      "name": "B: cannot read A's existing checkins",
+      "details": {
+        "returned": 0
+      }
+    },
+    {
+      "name": "A: direct training_plans INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct training_plans UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct training_plans DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct training_tasks INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct training_tasks UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct training_tasks DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct profiles INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct profiles UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct profiles DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct daily_progress INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct daily_progress UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct daily_progress DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct checkins INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct checkins UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: direct checkins DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct training_plans INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct training_plans UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct training_plans DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct training_tasks INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct training_tasks UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct training_tasks DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct profiles INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct profiles UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct profiles DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct daily_progress INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct daily_progress UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct daily_progress DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct checkins INSERT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct checkins UPDATE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "B: direct checkins DELETE denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: cannot UPDATE B's actual profiles row",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: cannot UPDATE B's actual daily_progress row",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "A: cannot UPDATE B's actual checkins row",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "Fixture: A checked in today; B has incomplete tasks and no today checkin",
+      "details": {
+        "aTodayCheckins": 1,
+        "bTodayCheckins": 0,
+        "bCompleted": 1,
+        "bTaskCount": 3
+      }
+    },
+    {
+      "name": "Anonymous: training_plans SELECT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "Anonymous: training_tasks SELECT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "Anonymous: profiles SELECT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "Anonymous: daily_progress SELECT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "Anonymous: checkins SELECT denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "Anonymous: vt_action denied",
+      "details": {
+        "code": "42501"
+      }
+    },
+    {
+      "name": "Old p_timezone RPC signature rejected",
+      "details": {
+        "code": "PGRST202"
+      }
+    },
+    {
+      "name": "Unknown RPC action rejected",
+      "details": {
+        "code": "P0001"
+      }
+    },
+    {
+      "name": "A: completed-day task locked",
+      "details": {
+        "code": "P0001"
+      }
+    },
+    {
+      "name": "A: completed-day assessment locked",
+      "details": {
+        "code": "P0001"
+      }
+    },
+    {
+      "name": "Forged user_id cannot bypass A's task lock",
+      "details": {
+        "code": "P0001"
+      }
+    },
+    {
+      "name": "Forged user_id cannot bypass A's profile lock",
+      "details": {
+        "code": "P0001"
+      }
+    },
+    {
+      "name": "B: database rejects checkin with incomplete tasks",
+      "details": {
+        "code": "P0001",
+        "todayRows": 0
+      }
+    },
+    {
+      "name": "B: real task write ignores forged header/date/user_id (UTC)",
+      "details": {
+        "todayTaskRows": 1,
+        "date": "2026-09-18",
+        "dateSetUnchanged": true,
+        "businessFieldsUnchanged": true,
+        "aUnchanged": true,
+        "completedAtRefreshAllowed": true
+      }
+    },
+    {
+      "name": "B: real task write ignores forged header/date/user_id (America/Los_Angeles)",
+      "details": {
+        "todayTaskRows": 1,
+        "date": "2026-09-18",
+        "dateSetUnchanged": true,
+        "businessFieldsUnchanged": true,
+        "aUnchanged": true,
+        "completedAtRefreshAllowed": true
+      }
+    },
+    {
+      "name": "B: real task write ignores forged header/date/user_id (Invalid/VT-QA-Timezone)",
+      "details": {
+        "todayTaskRows": 1,
+        "date": "2026-09-18",
+        "dateSetUnchanged": true,
+        "businessFieldsUnchanged": true,
+        "aUnchanged": true,
+        "completedAtRefreshAllowed": true
+      }
+    },
+    {
+      "name": "B: direct task RPC ignores payload date/timezone/user_id",
+      "details": {
+        "todayTaskRows": 1,
+        "date": "2026-09-18",
+        "dateSetUnchanged": true,
+        "businessFieldsUnchanged": true,
+        "aUnchanged": true,
+        "completedAtRefreshAllowed": true
+      }
+    },
+    {
+      "name": "A: actual application API reads own cloud snapshot",
+      "details": {
+        "status": 200,
+        "cloudMode": true,
+        "shanghaiDate": true
+      }
+    },
+    {
+      "name": "B: actual application API reads own cloud snapshot",
+      "details": {
+        "status": 200,
+        "cloudMode": true,
+        "shanghaiDate": true
+      }
+    },
+    {
+      "name": "A: forged header/date ignored (Asia/Shanghai)",
+      "details": {
+        "status": 200,
+        "todayRows": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "name": "A: forged header/date ignored (UTC)",
+      "details": {
+        "status": 200,
+        "todayRows": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "name": "A: forged header/date ignored (America/Los_Angeles)",
+      "details": {
+        "status": 200,
+        "todayRows": 1,
+        "unchanged": true
+      }
+    },
+    {
+      "name": "A: direct RPC payload date/timezone cannot create another day",
+      "details": {
+        "unchanged": true
+      }
+    },
+    {
+      "name": "A: 3 concurrent duplicate checkins remain one today",
+      "details": {
+        "requests": 3,
+        "todayRows": 1
+      }
+    },
+    {
+      "name": "A: refresh/re-read preserves cloud progress and checkins",
+      "details": {
+        "progressRows": 4,
+        "checkinRows": 2
+      }
+    },
+    {
+      "name": "A: current daily_progress and checkin use same Shanghai date",
+      "details": {
+        "date": "2026-09-18",
+        "progressRows": 4
+      }
+    },
+    {
+      "name": "B: profiles unchanged after all isolation attempts",
+      "details": {
+        "rows": 1,
+        "authorizedCompletedAtRefreshExcluded": false
+      }
+    },
+    {
+      "name": "B: daily_progress unchanged after all isolation attempts",
+      "details": {
+        "rows": 7,
+        "authorizedCompletedAtRefreshExcluded": true
+      }
+    },
+    {
+      "name": "B: checkins unchanged after all isolation attempts",
+      "details": {
+        "rows": 2,
+        "authorizedCompletedAtRefreshExcluded": false
+      }
+    },
+    {
+      "name": "A: cloud streak snapshot consistent with direct authenticated read",
+      "details": {
+        "rows": 2
+      }
+    },
+    {
+      "name": "A: current streak/weekly fixture expectation",
+      "details": {
+        "expected": 2,
+        "actual": 2
+      }
+    },
+    {
+      "name": "A: longest streak/weekly fixture expectation",
+      "details": {
+        "expected": 2,
+        "actual": 2
+      }
+    },
+    {
+      "name": "A: week streak/weekly fixture expectation",
+      "details": {
+        "expected": 2,
+        "actual": 2
+      }
+    },
+    {
+      "name": "B: cloud streak snapshot consistent with direct authenticated read",
+      "details": {
+        "rows": 2
+      }
+    },
+    {
+      "name": "B: current streak/weekly fixture expectation",
+      "details": {
+        "expected": 0,
+        "actual": 0
+      }
+    },
+    {
+      "name": "B: longest streak/weekly fixture expectation",
+      "details": {
+        "expected": 2,
+        "actual": 2
+      }
+    },
+    {
+      "name": "B: week streak/weekly fixture expectation",
+      "details": {
+        "expected": 2,
+        "actual": 2
+      }
+    }
+  ],
+  "failed": [],
+  "unverified": [],
+  "observations": {
+    "today": "2026-09-18",
+    "fixtureRows": {
+      "A": {
+        "training_plans": 3,
+        "training_tasks": 10,
+        "profiles": 1,
+        "daily_progress": 8,
+        "checkins": 2
+      },
+      "B": {
+        "training_plans": 3,
+        "training_tasks": 10,
+        "profiles": 1,
+        "daily_progress": 7,
+        "checkins": 2
+      }
+    },
+    "authorizedSameValueTaskWrite": {
+      "account": "B",
+      "date": "2026-09-18",
+      "fieldAllowedToChange": "completed_at on the existing completed task only",
+      "protectedFields": [
+        "id",
+        "user_id",
+        "date",
+        "task_id",
+        "completed"
+      ],
+      "note": "The real same-value task write refreshes completed_at by design; this timestamp refresh is excluded from the final unchanged comparison only for that one row."
+    },
+    "streak": {
+      "A": {
+        "today": "2026-09-18",
+        "dates": [
+          "2026-09-17",
+          "2026-09-18"
+        ],
+        "stats": {
+          "current": 2,
+          "longest": 2,
+          "total": 2,
+          "week": 2,
+          "monday": "2026-09-14"
+        },
+        "source": "Real remote checkins; application trainingStats implementation; privileged historical fixtures if supplied by operator"
+      },
+      "B": {
+        "today": "2026-09-18",
+        "dates": [
+          "2026-09-15",
+          "2026-09-16"
+        ],
+        "stats": {
+          "current": 0,
+          "longest": 2,
+          "total": 2,
+          "week": 2,
+          "monday": "2026-09-14"
+        },
+        "source": "Real remote checkins; application trainingStats implementation; privileged historical fixtures if supplied by operator"
+      }
+    }
+  },
+  "finishedAt": "2026-09-18T09:45:05.557Z",
+  "counts": {
+    "pass": 91,
+    "failed": 0,
+    "unverified": 0
+  }
+}
