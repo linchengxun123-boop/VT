@@ -857,12 +857,6 @@ button {
   margin: 28px 0 24px;
   font-weight: 850;
 }
-.english-line {
-  font-size: 22px;
-  line-height: 1.5;
-  letter-spacing: -0.3px;
-  color: var(--text-primary);
-}
 .landing-description {
   font-size: 14px;
   line-height: 2;
@@ -1795,13 +1789,10 @@ button {
     gap: 9px;
   }
   .landing-copy h1 {
-    font-size: 63px;
+    font-size: clamp(48px, 16vw, 63px);
     margin: 24px 0 23px;
     line-height: 1.18;
     letter-spacing: -3px;
-  }
-  .english-line {
-    font-size: 20px;
   }
   .landing-description {
     font-size: 13px;

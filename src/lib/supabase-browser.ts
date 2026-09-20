@@ -3,6 +3,6 @@ import { supabaseConfig } from "./config";
 let client: SupabaseClient | undefined;
 export function supabaseBrowser() {
   const { url, key } = supabaseConfig();
-  if (!url || !key) throw new Error("请先在 .env.local 中配置 Supabase URL 和公开密钥。");
+  if (!url || !key) throw new Error("账号服务尚未配置，请联系管理员。");
   return (client ??= createClient(url, key));
 }

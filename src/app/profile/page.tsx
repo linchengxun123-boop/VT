@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight, UserRound, LogOut } from "lucide-react";
 import { Shell, Gate } from "@/components/shell";
 import { useTraining } from "@/components/training-provider";
+import { RANK_LABELS, ROLE_LABELS, weaknessLabel } from "@/lib/display";
 import { PLANS } from "@/lib/plans";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 import { authErrorMessage } from "@/lib/auth";
@@ -26,7 +27,7 @@ function Profile() {
     <div className="profile-page">
       <div className="page-heading">
         <div>
-          <span className="eyebrow">PLAYER PROFILE</span>
+          <span className="eyebrow">个人资料</span>
           <h1>你的训练档案。</h1>
           <p>从现在的水平，练到更好的自己。</p>
         </div>
@@ -36,8 +37,8 @@ function Profile() {
         <div className="profile-rank">
           <span className="rank-symbol">◇</span>
           <div>
-            <h2>{p.rank}</h2>
-            <span>{p.role}</span>
+            <h2>{RANK_LABELS[p.rank]}</h2>
+            <span>{ROLE_LABELS[p.role]}</span>
           </div>
           <span className="tag">{state.mode === "local" ? "访客玩家" : "已登录"}</span>
         </div>
@@ -52,7 +53,11 @@ function Profile() {
           </div>
           <div>
             <dt>训练重点</dt>
-            <dd>{p.weaknesses.length ? p.weaknesses.join("、") : "基础枪法与稳定性"}</dd>
+            <dd>
+              {p.weaknesses.length
+                ? p.weaknesses.map(weaknessLabel).join("、")
+                : "基础枪法与稳定性"}
+            </dd>
           </div>
         </dl>
         <Link href="/assessment" className="button secondary">
@@ -64,7 +69,7 @@ function Profile() {
         <h2>{state.mode === "local" ? "关于你的训练记录" : "跨设备保存训练记录"}</h2>
         <p>
           {state.mode === "local"
-            ? "记录已保存在此服务的本地数据库中，刷新或重启服务不会丢失。此浏览器的 Cookie 用于识别你的访客身份；清除 Cookie 或更换浏览器会进入新档案。"
+            ? "记录已保存在此服务的本地数据库中，刷新或重启服务不会丢失。此浏览器保存的身份标识用于识别你的访客身份；清除浏览器数据或更换浏览器会进入新档案。"
             : "训练记录保存在你的账号下，登录同一账号即可继续训练。"}
         </p>
         {state.mode === "supabase" && (

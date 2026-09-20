@@ -16,9 +16,7 @@ test.beforeEach(async ({ page, context }) => {
   });
   expect(result.ok()).toBeTruthy();
   await page.goto("/dashboard");
-  await expect(
-    page.getByRole("button", { name: "完成 Small Target Warmup", exact: true }),
-  ).toBeEnabled();
+  await expect(page.getByRole("button", { name: "完成 小目标热身", exact: true })).toBeEnabled();
 });
 
 test("a delayed background refresh cannot swallow a save or restore stale task state", async ({
@@ -47,16 +45,16 @@ test("a delayed background refresh cannot swallow a save or restore stale task s
   try {
     await page.evaluate(() => window.dispatchEvent(new Event("focus")));
     await started;
-    await page.getByRole("button", { name: "完成 Small Target Warmup", exact: true }).click();
-    await expect(page.getByRole("button", { name: "撤销 Small Target Warmup" })).toBeVisible();
+    await page.getByRole("button", { name: "完成 小目标热身", exact: true }).click();
+    await expect(page.getByRole("button", { name: "撤销 小目标热身" })).toBeVisible();
     expect(writes).toBe(1);
   } finally {
     release();
     await page.unrouteAll({ behavior: "wait" });
   }
-  await expect(page.getByRole("button", { name: "撤销 Small Target Warmup" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "撤销 小目标热身" })).toBeVisible();
   await page.reload();
-  await expect(page.getByRole("button", { name: "撤销 Small Target Warmup" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "撤销 小目标热身" })).toBeVisible();
 });
 
 test("failed save shows an error and permits retry without falsely completing a task", async ({
@@ -69,16 +67,18 @@ test("failed save shows an error and permits retry without falsely completing a 
       await route.fulfill({
         status: 500,
         contentType: "application/json",
-        body: JSON.stringify({ error: "保存失败，请重试。" }),
+        body: JSON.stringify({ error: "Internal server error: private upstream detail" }),
       });
     } else await route.continue();
   });
-  const complete = page.getByRole("button", { name: "完成 Small Target Warmup", exact: true });
+  const complete = page.getByRole("button", { name: "完成 小目标热身", exact: true });
   await complete.click();
-  await expect(page.locator('.error[role="alert"]')).toHaveText("保存失败，请重试。");
+  await expect(page.locator('.error[role="alert"]')).toHaveText(
+    "训练服务发生异常，暂时无法完成操作，请稍后重试。",
+  );
   await expect(complete).toBeEnabled();
   await complete.click();
-  await expect(page.getByRole("button", { name: "撤销 Small Target Warmup" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "撤销 小目标热身" })).toBeVisible();
   await expect(page.locator('.error[role="alert"]')).toHaveCount(0);
 });
 

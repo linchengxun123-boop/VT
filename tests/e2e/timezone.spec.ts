@@ -33,7 +33,7 @@ for (const timezoneId of ["Asia/Shanghai", "UTC", "America/Los_Angeles"]) {
       const today = trainingDate(new Date());
       expect((await assessment.json()).today).toBe(today);
       await page.goto("http://127.0.0.1:3100/dashboard");
-      for (const name of ["Small Target Warmup", "微调训练", "Vandal One Tap Practice", "乱斗"]) {
+      for (const name of ["小目标热身", "微调训练", "狂徒单点练习", "乱斗"]) {
         await page.getByRole("button", { name: `完成 ${name}`, exact: true }).click();
         await expect(page.getByRole("button", { name: `撤销 ${name}`, exact: true })).toBeVisible();
       }

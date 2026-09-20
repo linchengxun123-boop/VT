@@ -16,7 +16,7 @@ export default function HomePage() {
       <div className="landing">
         <header className="landing-header">
           <Brand />
-          <span className="eyebrow">BUILT FOR YOUR NEXT ROUND</span>
+          <span className="eyebrow">为下一局做好准备</span>
           <Link href="/assessment" className="text-link">
             开始训练 <MoveUpRight size={16} />
           </Link>
@@ -24,18 +24,13 @@ export default function HomePage() {
         <main className="landing-main">
           <div className="landing-copy">
             <div className="eyebrow accent">
-              <span className="tiny-line" /> VALORANT DAILY TRAINING
+              <span className="tiny-line" /> VALORANT 每日训练
             </div>
             <h1>
               每一天，
               <br />
               更准<span className="accent">一点。</span>
             </h1>
-            <p className="english-line">
-              Train with purpose.
-              <br />
-              Improve every day.
-            </p>
             <p className="landing-description">
               把「再来一把」的时间，留一点给认真练习。
               <br />
@@ -47,7 +42,7 @@ export default function HomePage() {
             <span className="caption">约 1 分钟测评 · 每天 10–45 分钟 · 从今天开始</span>
           </div>
           <div className="target-panel" aria-hidden="true">
-            <span className="target-label">FOCUS / CONTROL / CONSISTENCY</span>
+            <span className="target-label">专注 / 控制 / 坚持</span>
             <div className="target-grid">
               <div className="target-ring ring-outer" />
               <div className="target-ring ring-mid" />
@@ -56,16 +51,17 @@ export default function HomePage() {
               <div className="target-line vertical" />
               <Crosshair className="target-center" strokeWidth={1} />
               <span className="target-coordinate">
-                X 00.00
-                <br />Y 00.00
+                横向 00.00
+                <br />
+                纵向 00.00
               </span>
-              <span className="target-tick">01 — LOCK IN</span>
+              <span className="target-tick">01 — 专注当下</span>
             </div>
             <div className="target-bottom">
               <span>
-                SMALL ADJUSTMENTS.
+                每一次微调，
                 <br />
-                <b>BETTER ROUNDS.</b>
+                <b>让对枪更稳。</b>
               </span>
               <span className="target-number">
                 +1<span>%</span>
@@ -89,8 +85,8 @@ export default function HomePage() {
           ))}
         </section>
         <footer className="landing-footer">
-          <span>VT — TRAIN WITH INTENT.</span>
-          <span>独立训练工具，与 Riot Games 无关联。</span>
+          <span>VT — 每一次练习，都有方向。</span>
+          <span>独立训练工具，与 拳头游戏 无关联。</span>
         </footer>
       </div>
     </Gate>

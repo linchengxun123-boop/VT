@@ -1,3 +1,4 @@
+import { trainingErrorMessage } from "../errors";
 import { cookies } from "next/headers";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { randomBytes } from "node:crypto";
@@ -41,7 +42,7 @@ export async function repository(request: Request) {
     };
   }
   const { url, key } = supabaseConfig();
-  if (!url || !key) throw new HttpError("Supabase 尚未配置，请查看 .env.example。", 503);
+  if (!url || !key) throw new HttpError("账号服务尚未配置，请联系管理员。", 503);
   const token = request.headers.get("authorization")?.replace(/^Bearer /, "");
   if (!token) throw new HttpError("请先登录。", 401);
   const client = createClient(url, key, {
@@ -49,6 +50,8 @@ export async function repository(request: Request) {
     auth: { persistSession: false, autoRefreshToken: false },
   });
   const { data, error } = await client.auth.getUser(token);
+  if (error && error.status !== 401 && error.status !== 403)
+    throw new HttpError(trainingErrorMessage(error, error.status), error.status || 503);
   if (error || !data.user) throw new HttpError("登录已过期，请重新登录。", 401);
   const id = data.user.id;
   return {
@@ -65,7 +68,7 @@ async function mutate(client: SupabaseClient, action: string, payload: object) {
     p_action: action,
     p_payload: payload,
   });
-  if (error) throw new HttpError(error.message);
+  if (error) throw new HttpError(trainingErrorMessage(error));
 }
 async function cloudSnapshot(client: SupabaseClient, id: string, today: string): Promise<Snapshot> {
   const [profile, progress, checkins] = await Promise.all([
@@ -79,7 +82,7 @@ async function cloudSnapshot(client: SupabaseClient, id: string, today: string):
     client.from("checkins").select("*").eq("user_id", id).order("date", { ascending: false }),
   ]);
   const error = profile.error || progress.error || checkins.error;
-  if (error) throw new HttpError("读取云端数据失败，请确认数据库 SQL 已执行。", 503);
+  if (error) throw new HttpError(trainingErrorMessage(error), 503);
   return {
     profile: profile.data as Profile | null,
     completed: (progress.data || []).map((t) => t.task_id as string),

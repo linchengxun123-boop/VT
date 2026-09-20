@@ -65,7 +65,7 @@ export default function LoginPage() {
     <div className="assessment-page">
       <Brand />
       <div className="panel login-card">
-        <span className="eyebrow accent">WELCOME TO VT</span>
+        <span className="eyebrow accent">欢迎来到 VT</span>
         <h1>{signup ? "开始记录你的进步。" : "欢迎回到训练场。"}</h1>
         {dataMode === "local" ? (
           <>
@@ -85,7 +85,17 @@ export default function LoginPage() {
                   required
                   autoComplete="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onInvalid={(e) =>
+                    e.currentTarget.setCustomValidity(
+                      e.currentTarget.validity.valueMissing
+                        ? "请输入邮箱。"
+                        : "请输入有效的邮箱地址。",
+                    )
+                  }
+                  onChange={(e) => {
+                    e.target.setCustomValidity("");
+                    setEmail(e.target.value);
+                  }}
                 />
               </label>
               <label>
@@ -96,7 +106,17 @@ export default function LoginPage() {
                   minLength={8}
                   autoComplete={signup ? "new-password" : "current-password"}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onInvalid={(e) =>
+                    e.currentTarget.setCustomValidity(
+                      e.currentTarget.validity.valueMissing
+                        ? "请输入密码。"
+                        : "密码至少需要 8 个字符。",
+                    )
+                  }
+                  onChange={(e) => {
+                    e.target.setCustomValidity("");
+                    setPassword(e.target.value);
+                  }}
                 />
               </label>
               <span className="caption">至少 8 个字符</span>

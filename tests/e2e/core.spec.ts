@@ -7,8 +7,8 @@ test("first visit → assessment → Plan C → persisted tasks → checkin → 
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /每一天，\s*更准一点。/ })).toBeVisible();
   await page.getByRole("link", { name: "开始测评" }).click();
-  await page.getByRole("button", { name: "Gold", exact: false }).click();
-  await page.getByRole("button", { name: "Duelist", exact: true }).click();
+  await page.getByRole("button", { name: "黄金", exact: false }).click();
+  await page.getByRole("button", { name: "决斗", exact: true }).click();
   await page.getByRole("button", { name: "20 分钟", exact: true }).click();
   await page.getByRole("button", { name: "拉枪容易拉过", exact: true }).click();
   await page.getByRole("button", { name: "生成我的训练计划" }).click();
@@ -16,11 +16,11 @@ test("first visit → assessment → Plan C → persisted tasks → checkin → 
   await page.getByRole("link", { name: "进入今日训练" }).click();
   const checkin = page.getByRole("button", { name: "完成今日训练", exact: true });
   await expect(checkin).toBeDisabled();
-  await page.getByRole("button", { name: "完成 Small Target Warmup", exact: true }).click();
-  await expect(page.getByRole("button", { name: "撤销 Small Target Warmup" })).toBeVisible();
+  await page.getByRole("button", { name: "完成 小目标热身", exact: true }).click();
+  await expect(page.getByRole("button", { name: "撤销 小目标热身" })).toBeVisible();
   await page.reload();
-  await expect(page.getByRole("button", { name: "撤销 Small Target Warmup" })).toBeVisible();
-  for (const name of ["微调训练", "Vandal One Tap Practice", "乱斗"]) {
+  await expect(page.getByRole("button", { name: "撤销 小目标热身" })).toBeVisible();
+  for (const name of ["微调训练", "狂徒单点练习", "乱斗"]) {
     await page.getByRole("button", { name: `完成 ${name}`, exact: true }).click();
     await expect(page.getByRole("button", { name: `撤销 ${name}`, exact: true })).toBeVisible();
   }

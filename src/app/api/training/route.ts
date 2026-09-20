@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { trainingErrorMessage } from "@/lib/errors";
 import { assessmentSchema } from "@/lib/domain";
 import { repository, HttpError } from "@/lib/server/repository";
 export const runtime = "nodejs";
@@ -14,7 +15,10 @@ const actionSchema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("checkin") }),
 ]);
 function failure(error: unknown) {
-  const message = error instanceof Error ? error.message : "保存失败，请稍后重试。";
+  const message =
+    error instanceof SyntaxError
+      ? "请求内容无法识别，请刷新页面后重试。"
+      : trainingErrorMessage(error, error instanceof HttpError ? error.status : undefined);
   return NextResponse.json(
     { error: error instanceof z.ZodError ? "请检查测评选项是否填写完整。" : message },
     {

@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Assessment, Snapshot } from "@/lib/domain";
+import { trainingErrorMessage } from "@/lib/errors";
 import { dataMode } from "@/lib/config";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 
@@ -49,7 +50,8 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       "Content-Type": "application/json",
     };
     if (dataMode === "supabase") {
-      const { data } = await supabaseBrowser().auth.getSession();
+      const { data, error: sessionError } = await supabaseBrowser().auth.getSession();
+      if (sessionError) throw sessionError;
       if (!data.session) {
         return null;
       }
@@ -62,11 +64,17 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       cache: "no-store",
       signal,
     });
-    const result = await response.json();
+    let result;
+    try {
+      result = await response.json();
+    } catch (error) {
+      throw new Error(trainingErrorMessage(error, response.ok ? undefined : response.status));
+    }
     if (response.status === 401) {
       return null;
     }
-    if (!response.ok) throw new Error(result.error || "连接失败，请重试。");
+    if (!response.ok)
+      throw new Error(trainingErrorMessage({ message: result.error }, response.status));
     return result as Snapshot;
   }, []);
   const reload = useCallback(async () => {
@@ -82,7 +90,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       }
     } catch (e) {
       if (version === sequence.current && !controller.signal.aborted)
-        setError(e instanceof Error ? e.message : "加载失败，请重试。");
+        setError(trainingErrorMessage(e));
     } finally {
       if (reading.current === controller) reading.current = null;
       if (version === sequence.current) setLoading(false);
@@ -118,8 +126,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       apply(result);
       return Boolean(result);
     } catch (e) {
-      if (version === sequence.current)
-        setError(e instanceof Error ? e.message : "保存失败，请重试。");
+      if (version === sequence.current) setError(trainingErrorMessage(e));
       return false;
     } finally {
       writing.current = false;

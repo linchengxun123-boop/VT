@@ -35,7 +35,7 @@ function History() {
     <>
       <div className="page-heading">
         <div>
-          <span className="eyebrow">YOUR EFFORT, RECORDED</span>
+          <span className="eyebrow">记录每一份努力</span>
           <h1>每一天，都算数。</h1>
           <p>进步不总是立刻看见，但每一次训练都会留下记录。</p>
         </div>

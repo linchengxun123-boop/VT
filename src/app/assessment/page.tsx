@@ -6,6 +6,7 @@ import { Brand, Gate, ErrorNotice } from "@/components/shell";
 import { useTraining } from "@/components/training-provider";
 import { RANKS, ROLES, MINUTES, WEAKNESSES, type Assessment } from "@/lib/domain";
 import { recommendPlan, recommendationReason } from "@/lib/recommendation";
+import { RANK_LABELS, ROLE_LABELS, weaknessLabel, planLabel } from "@/lib/display";
 import { PLANS, scheduleTasks } from "@/lib/plans";
 export default function AssessmentPage() {
   return (
@@ -43,11 +44,11 @@ function AssessmentForm() {
           <div className="success-icon">
             <Check size={28} />
           </div>
-          <span className="eyebrow accent">YOUR TRAINING STARTS HERE</span>
+          <span className="eyebrow accent">你的训练，从这里开始</span>
           <h1>找到你的训练方向。</h1>
           <p>{recommendationReason(result)}</p>
           <div className="recommended-plan">
-            <span className="tag">PLAN {plan.id} · 为你推荐</span>
+            <span className="tag">计划{planLabel(plan.id)} · 为你推荐</span>
             <h2>{plan.name}</h2>
             {plan.title !== plan.name && <p>{plan.title}</p>}
             <div className="inline-meta">
@@ -81,7 +82,7 @@ function AssessmentForm() {
         </Link>
       </div>
       <div className="assessment-heading">
-        <span className="eyebrow accent">PLAYER ASSESSMENT / 01</span>
+        <span className="eyebrow accent">玩家测评 / 01</span>
         <h1>
           先了解你，
           <br className="mobile-only" />
@@ -114,7 +115,7 @@ function AssessmentForm() {
                   onClick={() => setRank(v)}
                 >
                   <span className="rank-diamond">◇</span>
-                  {v}
+                  {RANK_LABELS[v]}
                   {rank === v && <Check size={14} />}
                 </button>
               ))}
@@ -122,7 +123,7 @@ function AssessmentForm() {
           </fieldset>
           <fieldset>
             <legend>
-              <span>02</span> 主玩位置
+              <span>02</span> 主玩角色定位
             </legend>
             <div className="option-grid roles">
               {ROLES.map((v) => (
@@ -133,7 +134,7 @@ function AssessmentForm() {
                   className={`option ${role === v ? "selected" : ""}`}
                   onClick={() => setRole(v)}
                 >
-                  {v}
+                  {ROLE_LABELS[v]}
                   {role === v && <Check size={14} />}
                 </button>
               ))}
@@ -175,7 +176,7 @@ function AssessmentForm() {
                   }
                 >
                   <span className="checkbox">{weaknesses.includes(v) && <Check size={13} />}</span>
-                  {v}
+                  {weaknessLabel(v)}
                 </button>
               ))}
             </div>
@@ -185,7 +186,7 @@ function AssessmentForm() {
             {busy ? "正在生成计划…" : "生成我的训练计划"}
             <ArrowRight size={18} />
           </button>
-          {(!rank || !role) && <p className="caption center">请选择当前段位和主玩位置</p>}
+          {(!rank || !role) && <p className="caption center">请选择当前段位和主玩角色定位</p>}
         </form>
       )}
     </div>

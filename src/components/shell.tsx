@@ -41,7 +41,7 @@ export function Shell({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <span className="version">
-            TRAINING CLUB <span>01</span>
+            每日训练 <span>01</span>
           </span>
         </div>
       </header>
@@ -49,7 +49,7 @@ export function Shell({ children }: { children: ReactNode }) {
       <footer className="footer">
         <span>VT / 每一天，更进一步。</span>
         <span>
-          独立训练工具 · 与 Riot Games 无关联 <ArrowUpRight size={13} />
+          独立训练工具 · 与 拳头游戏 无关联 <ArrowUpRight size={13} />
         </span>
       </footer>
       <nav className="mobile-nav" aria-label="底部导航">

@@ -28,7 +28,7 @@ const script = `
     return Response.json([]);
   };
   if (!expected) {
-    assert.throws(() => supabaseBrowser(), /公开密钥/);
+    assert.throws(() => supabaseBrowser(), /账号服务尚未配置/);
     await assert.rejects(() => repository(new Request('http://localhost/api/training')), {status: 503});
     assert.equal(browserRead || serverAuth, false);
   } else {

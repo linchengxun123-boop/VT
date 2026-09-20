@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, Check, Crosshair, Flame, ShieldCheck, Target, Timer } from "lucide-react";
 import { Shell, Gate, ErrorNotice } from "@/components/shell";
 import { useTraining } from "@/components/training-provider";
+import { RANK_LABELS, ROLE_LABELS, planLabel } from "@/lib/display";
 import { PLANS, scheduleTasks } from "@/lib/plans";
 import { trainingStats } from "@/lib/streak";
 import { TaskCard } from "@/components/task-card";
@@ -33,7 +34,7 @@ function Dashboard() {
       <div className="page-heading">
         <div>
           <div className="eyebrow">
-            YOUR DAILY EDGE <span className="slash">/</span> {today.replaceAll("-", ".")}
+            每日进步 <span className="slash">/</span> {today.replaceAll("-", ".")}
           </div>
           <h1>{checked ? "今日已练，明天继续。" : "今天，也更进一步。"}</h1>
           <p>
@@ -45,8 +46,8 @@ function Dashboard() {
         <Link href="/profile" className="player-badge">
           <span className="rank-symbol">◇</span>
           <div>
-            <strong>{profile.rank}</strong>
-            <span>{profile.role}</span>
+            <strong>{RANK_LABELS[profile.rank]}</strong>
+            <span>{ROLE_LABELS[profile.role]}</span>
           </div>
           <ArrowUpRight size={16} />
         </Link>
@@ -56,7 +57,7 @@ function Dashboard() {
           <section className="plan-banner">
             <div className="plan-banner-copy">
               <span className="tag">
-                你的专属计划 <span>/ PLAN {plan.id}</span>
+                你的专属计划 <span>/ 计划{planLabel(plan.id)}</span>
               </span>
               <h2>{plan.name}</h2>
               {plan.title !== plan.name && <p>{plan.title}</p>}
@@ -69,19 +70,19 @@ function Dashboard() {
             </div>
             <div className="plan-emblem" aria-hidden="true">
               <Crosshair strokeWidth={0.8} />
-              <span>{plan.id}</span>
+              <span>{planLabel(plan.id)}</span>
             </div>
             <div className="plan-banner-bottom">
               <span>{plan.target}</span>
               <span>
-                DAILY ROUTINE <ArrowUpRight size={13} />
+                每日练习 <ArrowUpRight size={13} />
               </span>
             </div>
           </section>
           <section id="training" className="training-section">
             <div className="section-heading">
               <div>
-                <span className="eyebrow">LOCK IN & GET STARTED</span>
+                <span className="eyebrow">专注当下，开始训练</span>
                 <h2>
                   今日训练
                   <span className="count-label">{String(tasks.length).padStart(2, "0")}</span>
@@ -185,7 +186,7 @@ function Dashboard() {
           </section>
           <section className="focus-note">
             <Target size={19} />
-            <span className="eyebrow">TODAY’S FOCUS</span>
+            <span className="eyebrow">今日重点</span>
             <h3>
               {plan.id === "C"
                 ? "准星到位，再开枪。"
@@ -195,7 +196,7 @@ function Dashboard() {
             </h3>
             <p>{plan.description}</p>
             <div className="note-rule" />
-            <span className="caption">CONSISTENCY OVER INTENSITY.</span>
+            <span className="caption">坚持比强度更重要。</span>
           </section>
         </aside>
       </div>
