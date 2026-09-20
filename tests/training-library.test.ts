@@ -12,7 +12,7 @@ test("training library contains six unique, ordered reference entries", () => {
   assert.equal(new Set(trainingLibrary.map((entry) => entry.displayName)).size, 6);
   assert.deepEqual(
     trainingLibrary.map((entry) => entry.displayName),
-    ["康康", "yay", "TenZ", "nAts", "Demon1", "CHICHOO"],
+    ["zmjjkk", "yay", "TenZ", "nAts", "Demon1", "CHICHOO"],
   );
 });
 
@@ -21,7 +21,7 @@ test("environment filters match entries without changing source records", () => 
   const aimlabsEntries = filterTrainingLibrary("aimlabs");
   assert.deepEqual(
     gameEntries.map((entry) => entry.displayName),
-    ["康康", "nAts", "CHICHOO"],
+    ["zmjjkk", "nAts", "CHICHOO"],
   );
   assert.deepEqual(
     aimlabsEntries.map((entry) => entry.displayName),

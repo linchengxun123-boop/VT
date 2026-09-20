@@ -27,10 +27,10 @@ test("library filters six references and opens a guarded detail page", async ({ 
   await page.getByRole("link", { name: "游戏内", exact: true }).click();
   await expect(page).toHaveURL(/environment=game/);
   await expect(page.locator(".library-card")).toHaveCount(3);
-  await expect(page.locator(".library-card")).toContainText(["康康", "nAts", "CHICHOO"]);
+  await expect(page.locator(".library-card")).toContainText(["zmjjkk", "nAts", "CHICHOO"]);
 
-  await page.getByRole("link", { name: "查看 康康 方案" }).click();
-  await expect(page.getByRole("heading", { name: "康康", exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "查看 zmjjkk 方案" }).click();
+  await expect(page.getByRole("heading", { name: "zmjjkk", exact: true })).toBeVisible();
   await expect(page.getByText("内容整理中", { exact: true })).toBeVisible();
   const sources = page.locator(".library-sources");
   await expect(sources.locator("summary")).toContainText("参考来源");
@@ -58,11 +58,32 @@ test("library keeps three readable columns without horizontal overflow on mobile
     const cards = await page.locator(".library-card").evaluateAll((elements) =>
       elements.slice(0, 3).map((element) => {
         const rect = element.getBoundingClientRect();
-        return { x: Math.round(rect.x), y: Math.round(rect.y), width: rect.width };
+        return {
+          x: Math.round(rect.x),
+          y: Math.round(rect.y),
+          width: rect.width,
+          height: rect.height,
+        };
       }),
     );
     expect(new Set(cards.map((card) => card.y)).size).toBe(1);
     expect(cards.every((card) => card.width >= 80)).toBe(true);
+    expect(cards.every((card) => card.height <= 235)).toBe(true);
+    const names = await page.locator(".library-card h2").evaluateAll((elements) =>
+      elements.map((element) => ({
+        text: element.textContent,
+        width: element.clientWidth,
+        scrollWidth: element.scrollWidth,
+        lines: Math.round(
+          element.getBoundingClientRect().height /
+            Number.parseFloat(getComputedStyle(element).lineHeight),
+        ),
+        textAlign: getComputedStyle(element).textAlign,
+      })),
+    );
+    expect(names.every((name) => name.lines === 1)).toBe(true);
+    expect(names.every((name) => name.scrollWidth <= name.width + 1)).toBe(true);
+    expect(names.every((name) => name.textAlign === "center")).toBe(true);
     expect(
       await page
         .locator(".library-card-link")
@@ -70,8 +91,11 @@ test("library keeps three readable columns without horizontal overflow on mobile
           links.every((link) => Number.parseFloat(getComputedStyle(link).minHeight) >= 44),
         ),
     ).toBe(true);
-    if (width === 390)
-      await page.screenshot({ path: "artifacts/qa/plan-library-mobile-390.png", fullPage: true });
+    if (width === 320 || width === 390)
+      await page.screenshot({
+        path: `artifacts/qa/plan-library-mobile-${width}.png`,
+        fullPage: true,
+      });
   }
 });
 

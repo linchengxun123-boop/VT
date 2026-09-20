@@ -2181,13 +2181,15 @@ button {
 }
 .library-card {
   min-width: 0;
-  min-height: 292px;
-  padding: 16px;
+  min-height: 264px;
+  padding: 14px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--surface);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .library-card:hover {
   border-color: var(--border-strong);
@@ -2206,7 +2208,7 @@ button {
 .library-avatar {
   width: 72px;
   height: 72px;
-  margin-bottom: 14px;
+  margin: 0 auto 12px;
   border-radius: 50%;
 }
 .library-avatar svg {
@@ -2215,7 +2217,7 @@ button {
   stroke-width: 1.2;
 }
 .library-card-copy {
-  flex: 1;
+  width: 100%;
 }
 .library-person-type {
   color: var(--text-secondary);
@@ -2225,6 +2227,7 @@ button {
 .library-card h2 {
   margin-top: 2px;
   font-size: 18px;
+  white-space: nowrap;
   overflow-wrap: anywhere;
 }
 .library-card p {
@@ -2236,6 +2239,7 @@ button {
 .library-environments {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 5px;
   margin-top: 13px;
 }
@@ -2252,12 +2256,15 @@ button {
   font-weight: 650;
 }
 .library-card-link {
+  width: 100%;
   min-height: 44px;
-  margin-top: 11px;
+  margin-top: auto;
+  padding-top: 7px;
   border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 6px;
   color: var(--primary);
   font-size: 12px;
   font-weight: 650;
@@ -2473,14 +2480,14 @@ button {
     gap: 7px;
   }
   .library-card {
-    min-height: 260px;
-    padding: 10px 8px 7px;
+    min-height: 226px;
+    padding: 9px 6px 5px;
     border-radius: 8px;
   }
   .library-avatar {
-    width: 52px;
-    height: 52px;
-    margin-bottom: 10px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 7px;
   }
   .library-avatar svg {
     width: 25px;
@@ -2488,19 +2495,21 @@ button {
   }
   .library-person-type {
     font-size: 8px;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.4px;
   }
   .library-card h2 {
-    font-size: 14px;
+    font-size: clamp(12px, 3.4vw, 14px);
     line-height: 1.35;
+    letter-spacing: -0.2px;
+    overflow-wrap: normal;
   }
   .library-card p {
-    margin-top: 5px;
+    margin-top: 4px;
     font-size: 10px;
-    line-height: 1.55;
+    line-height: 1.45;
   }
   .library-environments {
-    margin-top: 8px;
+    margin-top: 6px;
   }
   .library-environments span {
     min-height: 22px;
@@ -2509,7 +2518,8 @@ button {
   }
   .library-card-link {
     min-height: 44px;
-    margin-top: 7px;
+    margin-top: auto;
+    padding-top: 5px;
     font-size: 10px;
   }
   .library-card-link svg {

@@ -38,7 +38,7 @@ export const verificationLabels: Record<VerificationStatus, string> = {
 export const trainingLibrary: TrainingLibraryEntry[] = [
   {
     id: "zmjjkk-range-and-deathmatch-reference",
-    displayName: "康康",
+    displayName: "zmjjkk",
     personType: "选手",
     avatar: null,
     theme: "靶场热身、瞄准定位、预瞄与乱斗",
