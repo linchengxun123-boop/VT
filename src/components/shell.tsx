@@ -19,6 +19,10 @@ export function Brand() {
 }
 export function Shell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const isActive = (href: string) =>
+    href === "/dashboard"
+      ? pathname === "/dashboard" || pathname.startsWith("/plans")
+      : pathname === href;
   return (
     <>
       <header className="header">
@@ -32,8 +36,8 @@ export function Shell({ children }: { children: ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
-                aria-current={pathname === item.href ? "page" : undefined}
-                className={pathname === item.href ? "active" : ""}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={isActive(item.href) ? "active" : ""}
               >
                 <item.icon size={16} />
                 {item.label}
@@ -57,8 +61,8 @@ export function Shell({ children }: { children: ReactNode }) {
           <Link
             key={item.href}
             href={item.href}
-            aria-current={pathname === item.href ? "page" : undefined}
-            className={pathname === item.href ? "active" : ""}
+            aria-current={isActive(item.href) ? "page" : undefined}
+            className={isActive(item.href) ? "active" : ""}
           >
             <item.icon size={21} />
             <span>{item.label}</span>
@@ -66,6 +70,27 @@ export function Shell({ children }: { children: ReactNode }) {
         ))}
       </nav>
     </>
+  );
+}
+export function TrainingNav() {
+  const pathname = usePathname();
+  const items = [
+    { href: "/dashboard", label: "今日训练", active: pathname === "/dashboard" },
+    { href: "/plans", label: "计划库", active: pathname.startsWith("/plans") },
+  ];
+  return (
+    <nav className="training-nav" aria-label="训练区域">
+      {items.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href}
+          aria-current={item.active ? "page" : undefined}
+          className={item.active ? "active" : ""}
+        >
+          {item.label}
+        </Link>
+      ))}
+    </nav>
   );
 }
 export function Gate({ children, profile = true }: { children: ReactNode; profile?: boolean }) {

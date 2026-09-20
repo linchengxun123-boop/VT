@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ArrowUpRight, Check, Crosshair, Flame, ShieldCheck, Target, Timer } from "lucide-react";
-import { Shell, Gate, ErrorNotice } from "@/components/shell";
+import { Shell, Gate, ErrorNotice, TrainingNav } from "@/components/shell";
 import { useTraining } from "@/components/training-provider";
 import { RANK_LABELS, ROLE_LABELS, planLabel } from "@/lib/display";
 import { PLANS, scheduleTasks } from "@/lib/plans";
@@ -31,6 +31,7 @@ function Dashboard() {
     count = tasks.filter((t) => completed.includes(t.id)).length;
   return (
     <>
+      <TrainingNav />
       <div className="page-heading">
         <div>
           <div className="eyebrow">
