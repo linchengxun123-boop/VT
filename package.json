@@ -9,7 +9,7 @@
     "start": "next start --hostname 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
-    "test": "tsx --test tests/domain.test.ts tests/storage.test.ts tests/supabase.test.ts tests/config.test.ts tests/timezone.test.ts tests/migration-safety.test.mjs",
+    "test": "tsx --test tests/auth.test.ts tests/domain.test.ts tests/storage.test.ts tests/supabase.test.ts tests/config.test.ts tests/timezone.test.ts tests/migration-safety.test.mjs",
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

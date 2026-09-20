@@ -1,16 +1,41 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Brand } from "@/components/shell";
 import { supabaseBrowser } from "@/lib/supabase-browser";
 import { dataMode } from "@/lib/config";
+import { authErrorMessage, normalizeAuthEmail, SIGNUP_CONFIRMATION_MESSAGE } from "@/lib/auth";
 export default function LoginPage() {
   const [signup, setSignup] = useState(false),
     [email, setEmail] = useState(""),
     [password, setPassword] = useState(""),
     [error, setError] = useState(""),
     [message, setMessage] = useState(""),
-    [busy, setBusy] = useState(false);
+    [busy, setBusy] = useState(false),
+    [checkingSession, setCheckingSession] = useState(dataMode === "supabase");
+  useEffect(() => {
+    if (dataMode !== "supabase") return;
+    let active = true;
+    void supabaseBrowser()
+      .auth.getSession()
+      .then(({ data, error: sessionError }) => {
+        if (!active) return;
+        if (data.session) {
+          window.location.replace("/");
+          return;
+        }
+        if (sessionError) setError(authErrorMessage(sessionError, "login"));
+        setCheckingSession(false);
+      })
+      .catch((sessionError: unknown) => {
+        if (!active) return;
+        setError(authErrorMessage(sessionError, "login"));
+        setCheckingSession(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -18,20 +43,20 @@ export default function LoginPage() {
     setMessage("");
     try {
       const client = supabaseBrowser();
+      const normalizedEmail = normalizeAuthEmail(email);
       const result = signup
         ? await client.auth.signUp({
-            email,
+            email: normalizedEmail,
             password,
             options: { emailRedirectTo: window.location.origin + "/login" },
           })
-        : await client.auth.signInWithPassword({ email, password });
+        : await client.auth.signInWithPassword({ email: normalizedEmail, password });
       if (result.error) throw result.error;
       // A full document navigation discards the previous identity's provider state.
-      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-      if (result.data.session) window.location.assign("/");
-      else setMessage("确认邮件已发送，请点击邮件中的链接，再回来登录。");
+      if (result.data.session) window.location.replace("/");
+      else setMessage(SIGNUP_CONFIRMATION_MESSAGE);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "登录失败，请重试。");
+      setError(authErrorMessage(e, signup ? "signup" : "login"));
     } finally {
       setBusy(false);
     }
@@ -85,8 +110,14 @@ export default function LoginPage() {
                   {message}
                 </p>
               )}
-              <button disabled={busy} className="button primary full">
-                {busy ? "请稍候…" : signup ? "注册账号" : "登录"}
+              <button disabled={busy || checkingSession} className="button primary full">
+                {checkingSession
+                  ? "正在检查登录状态…"
+                  : busy
+                    ? "请稍候…"
+                    : signup
+                      ? "注册账号"
+                      : "登录"}
               </button>
             </form>
             <button

@@ -1,10 +1,12 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, UserRound, LogOut } from "lucide-react";
 import { Shell, Gate } from "@/components/shell";
 import { useTraining } from "@/components/training-provider";
 import { PLANS } from "@/lib/plans";
 import { supabaseBrowser } from "@/lib/supabase-browser";
+import { authErrorMessage } from "@/lib/auth";
 export default function ProfilePage() {
   return (
     <Shell>
@@ -16,6 +18,8 @@ export default function ProfilePage() {
 }
 function Profile() {
   const { state } = useTraining();
+  const [signingOut, setSigningOut] = useState(false);
+  const [signOutError, setSignOutError] = useState("");
   if (!state?.profile) return null;
   const p = state.profile;
   return (
@@ -64,18 +68,41 @@ function Profile() {
             : "训练记录保存在你的账号下，登录同一账号即可继续训练。"}
         </p>
         {state.mode === "supabase" && (
-          <button
-            className="button secondary"
-            onClick={async () => {
-              await supabaseBrowser().auth.signOut();
-              // Clear the in-memory player snapshot when ending this session.
-              // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-              window.location.assign("/login");
-            }}
-          >
-            <LogOut size={16} />
-            退出登录
-          </button>
+          <>
+            {signOutError && (
+              <div className="error" role="alert">
+                {signOutError}
+              </div>
+            )}
+            <button
+              className="button secondary"
+              disabled={signingOut}
+              onClick={async () => {
+                setSigningOut(true);
+                setSignOutError("");
+                try {
+                  const client = supabaseBrowser();
+                  const { error } = await client.auth.signOut();
+                  const { data } = await client.auth.getSession();
+                  if (!data.session) {
+                    // Replace the protected page so Back cannot restore a stale profile document.
+                    window.location.replace("/login");
+                    return;
+                  }
+                  setSignOutError(
+                    authErrorMessage(error ?? new Error("Session still active"), "signout"),
+                  );
+                } catch (error) {
+                  setSignOutError(authErrorMessage(error, "signout"));
+                } finally {
+                  setSigningOut(false);
+                }
+              }}
+            >
+              <LogOut size={16} />
+              {signingOut ? "正在退出…" : "退出登录"}
+            </button>
+          </>
         )}
       </section>
     </div>
